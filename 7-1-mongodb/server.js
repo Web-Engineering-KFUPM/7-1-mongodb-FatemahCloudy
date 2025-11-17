@@ -167,24 +167,68 @@
  * 
  */
 
+// Import Mongoose
 import mongoose from "mongoose";
 
-// establish connection
+// Establish connection
+const connectionString = "mongodb+srv://Fatemah:Engineer&1234@swe363.q4zsqcz.mongodb.net/";
+mongoose.connect(connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => {
+        console.log("✅ Connected to MongoDB");
+    })
+    .catch(err => {
+        console.error("❌ Connection error:", err);
+    });
 
+// Define schema
+const studentSchema = new mongoose.Schema({
+    name: String,
+    age: Number,
+    major: String
+});
+const Student = mongoose.model("Student", studentSchema);
 
-// define schema
+// Create document
+async function createStudents() {
+    await Student.insertMany([
+        { name: "Ali", age: 21, major: "CS" },
+        { name: "Sara", age: 23, major: "SE" }
+    ]);
+    console.log("✅ Inserted Students");
+}
 
+// Read document
+async function readStudents() {
+    const all = await Student.find();
+    console.log(all);
+}
 
-// create document
+// Update document
+async function updateStudent() {
+    await Student.updateOne({ name: "Ali" }, { age: 22 });
+    console.log("✅ Updated Ali");
+}
 
+// Delete document
+async function deleteStudent() {
+    await Student.deleteOne({ name: "Sara" });
+    console.log("✅ Deleted Sara");
+}
 
-// read document
+// Execute functions for testing
+async function run() {
+    await createStudents();
+    await readStudents();
+    await updateStudent();
+    await readStudents();
+    await deleteStudent();
+    await readStudents();
+}
 
-
-// update document
-
-
-// delete document
+run();
 
 
 
