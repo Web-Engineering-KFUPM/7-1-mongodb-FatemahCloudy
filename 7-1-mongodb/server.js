@@ -171,7 +171,7 @@
 import mongoose from "mongoose";
 
 // Establish connection
-const connectionString = "mongodb+srv://Fatemah:Engineer&1234@swe363.q4zsqcz.mongodb.net/";
+const connectionString = "URL";
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
